@@ -30,6 +30,8 @@ const messages = {
     header: {
       developer: "Frontend Developer",
       language: "Language",
+      darkMode: "Dark Mode",
+      lightMode: "Light Mode",
     },
     sidebar: {
       dashboard: "Dashboard",
@@ -118,6 +120,8 @@ const messages = {
     header: {
       developer: "前端工程師",
       language: "語言",
+      darkMode: "夜間模式",
+      lightMode: "日間模式",
     },
     sidebar: {
       dashboard: "儀表板",

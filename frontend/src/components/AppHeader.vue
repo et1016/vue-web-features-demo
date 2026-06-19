@@ -49,6 +49,21 @@
         </select>
       </div>
 
+      <!-- Theme Switcher -->
+      <button
+        @click="toggleTheme"
+        class="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-xl shadow-sm hover:border-blue-300 transition dark:bg-slate-900 dark:border-slate-700"
+      >
+        <component
+          :is="isDark ? Sun : Moon"
+          :size="18"
+          class="text-slate-600 dark:text-slate-200"
+        />
+        <span class="text-sm font-medium text-slate-600 dark:text-slate-200">
+          {{ isDark ? t("header.lightMode") : t("header.darkMode") }}
+        </span>
+      </button>
+
       <!-- Avatar -->
       <div class="flex items-center gap-3 pl-4 border-l">
         <img src="https://i.pravatar.cc/100?img=12" alt="avatar" class="w-10 h-10 rounded-full" />
@@ -66,11 +81,13 @@
 <script setup>
 import { computed } from "vue";
 import { useRoute } from "vue-router";
-import { Bell } from "lucide-vue-next";
+import { Bell, Moon, Sun } from "lucide-vue-next";
 import { useI18n } from "@/i18n";
+import { useTheme } from "@/utils/theme";
 
 const route = useRoute();
 const { t, locale, languageOptions } = useI18n();
+const { isDark, toggleTheme } = useTheme();
 
 const pageMap = {
   "/": {
