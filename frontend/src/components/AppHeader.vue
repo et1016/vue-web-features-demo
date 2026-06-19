@@ -17,7 +17,7 @@
       <div class="flex items-center gap-2 px-3 py-2 bg-green-50 rounded-xl">
         <div class="w-2 h-2 rounded-full bg-green-500"></div>
 
-        <span class="text-sm text-green-600"> Connected </span>
+        <span class="text-sm text-green-600">{{ t("common.connected") }}</span>
       </div>
 
       <!-- Notification -->
@@ -31,6 +31,24 @@
         </span>
       </button>
 
+      <!-- Language Switcher -->
+      <div
+        class="flex items-center gap-3 px-4 py-2 bg-white border border-slate-200 rounded-xl shadow-sm hover:border-blue-300 transition"
+      >
+        <span class="text-xs font-medium text-slate-500 uppercase tracking-wider">
+          {{ t("header.language") }}
+        </span>
+
+        <select
+          v-model="locale"
+          class="bg-transparent text-sm font-medium text-slate-700 outline-none cursor-pointer"
+        >
+          <option v-for="option in languageOptions" :key="option.value" :value="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+
       <!-- Avatar -->
       <div class="flex items-center gap-3 pl-4 border-l">
         <img src="https://i.pravatar.cc/100?img=12" alt="avatar" class="w-10 h-10 rounded-full" />
@@ -38,7 +56,7 @@
         <div>
           <div class="font-medium text-sm">Ryan Chen</div>
 
-          <div class="text-xs text-slate-500">Frontend Developer</div>
+          <div class="text-xs text-slate-500">{{ t("header.developer") }}</div>
         </div>
       </div>
     </div>
@@ -49,38 +67,40 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { Bell } from "lucide-vue-next";
+import { useI18n } from "@/i18n";
 
 const route = useRoute();
+const { t, locale, languageOptions } = useI18n();
 
 const pageMap = {
   "/": {
-    title: "Dashboard",
-    description: "Overview of your realtime platform",
+    title: "page.dashboard.title",
+    description: "page.dashboard.description",
   },
   "/chat": {
-    title: "Live Chat",
-    description: "Realtime messaging experience",
+    title: "page.chat.title",
+    description: "page.chat.description",
   },
   "/socket": {
-    title: "WebSocket Monitor",
-    description: "Monitor websocket connection status",
+    title: "page.socket.title",
+    description: "page.socket.description",
   },
   "/notification": {
-    title: "Notifications",
-    description: "Manage push notification settings",
+    title: "page.notification.title",
+    description: "page.notification.description",
   },
   "/profile": {
-    title: "Profile",
-    description: "Manage your personal account",
+    title: "page.profile.title",
+    description: "page.profile.description",
   },
 };
 
 const pageTitle = computed(() => {
-  return pageMap[route.path]?.title || "Dashboard";
+  return t(pageMap[route.path]?.title || "page.dashboard.title");
 });
 
 const pageDescription = computed(() => {
-  return pageMap[route.path]?.description || "Overview of your realtime platform";
+  return t(pageMap[route.path]?.description || "page.dashboard.description");
 });
 </script>
 

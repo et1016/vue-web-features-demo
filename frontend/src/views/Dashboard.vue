@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="grid grid-cols-4 gap-5">
-      <div v-for="card in cards" :key="card.title" class="bg-white rounded-2xl p-5 shadow-sm">
+      <div v-for="card in cards" :key="card.key" class="bg-white rounded-2xl p-5 shadow-sm">
         <div class="text-slate-500 text-sm">
-          {{ card.title }}
+          {{ t(card.key) }}
         </div>
 
         <div class="mt-3 text-3xl font-bold">
@@ -14,7 +14,7 @@
 
     <div class="grid grid-cols-2 gap-5 mt-6">
       <div class="bg-white rounded-2xl p-5 shadow-sm">
-        <h3 class="font-semibold mb-4">Recent Activity</h3>
+        <h3 class="font-semibold mb-4">{{ t("dashboard.recentActivity") }}</h3>
 
         <div class="space-y-3">
           <div v-for="item in activities" :key="item" class="text-sm">
@@ -24,22 +24,22 @@
       </div>
 
       <div class="bg-white rounded-2xl p-5 shadow-sm">
-        <h3 class="font-semibold mb-4">System Status</h3>
+        <h3 class="font-semibold mb-4">{{ t("dashboard.systemStatus") }}</h3>
 
         <div class="space-y-4">
           <div class="flex justify-between">
-            <span>Google Login</span>
-            <span class="text-green-500">Connected</span>
+            <span>{{ t("dashboard.googleLogin") }}</span>
+            <span class="text-green-500">{{ t("dashboard.connected") }}</span>
           </div>
 
           <div class="flex justify-between">
-            <span>WebSocket</span>
-            <span class="text-green-500">Connected</span>
+            <span>{{ t("dashboard.websocket") }}</span>
+            <span class="text-green-500">{{ t("dashboard.connected") }}</span>
           </div>
 
           <div class="flex justify-between">
-            <span>Push Notification</span>
-            <span class="text-green-500">Enabled</span>
+            <span>{{ t("dashboard.pushNotification") }}</span>
+            <span class="text-green-500">{{ t("dashboard.enabled") }}</span>
           </div>
         </div>
       </div>
@@ -48,31 +48,31 @@
 </template>
 
 <script setup>
+import { computed } from "vue";
+import { useI18n } from "@/i18n";
+
+const { t, get } = useI18n();
+
 const cards = [
   {
-    title: "Online Users",
+    key: "dashboard.cards.onlineUsers",
     value: 128,
   },
   {
-    title: "Messages",
+    key: "dashboard.cards.messages",
     value: 3421,
   },
   {
-    title: "Notifications",
+    key: "dashboard.cards.notifications",
     value: 97,
   },
   {
-    title: "Rooms",
+    key: "dashboard.cards.rooms",
     value: 12,
   },
 ];
 
-const activities = [
-  "Tom joined chat room",
-  "Amy sent a message",
-  "Push notification sent",
-  "Google login success",
-];
+const activities = computed(() => get("dashboard.activities") ?? []);
 </script>
 
 <style scoped></style>

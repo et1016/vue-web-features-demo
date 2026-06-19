@@ -2,7 +2,7 @@
   <aside class="w-64 bg-white border-r flex flex-col">
     <!-- Logo -->
     <div class="h-16 flex items-center px-6 border-b">
-      <h1 class="text-xl font-bold text-slate-800">Realtime Hub</h1>
+      <h1 class="text-xl font-bold text-slate-800">{{ t("brand") }}</h1>
     </div>
 
     <!-- Menu -->
@@ -19,7 +19,7 @@
         "
       >
         <component :is="item.icon" :size="20" />
-        <span>{{ item.name }}</span>
+        <span>{{ t(item.name) }}</span>
       </RouterLink>
     </nav>
 
@@ -41,32 +41,34 @@
 <script setup>
 import { useRoute } from "vue-router";
 import { LayoutDashboard, MessageSquare, Wifi, Bell, User } from "lucide-vue-next";
+import { useI18n } from "@/i18n";
 
 const route = useRoute();
+const { t } = useI18n();
 
 const menus = [
   {
-    name: "Dashboard",
+    name: "sidebar.dashboard",
     path: "/",
     icon: LayoutDashboard,
   },
   {
-    name: "Live Chat",
+    name: "sidebar.chat",
     path: "/chat",
     icon: MessageSquare,
   },
   {
-    name: "WebSocket",
+    name: "sidebar.websocket",
     path: "/socket",
     icon: Wifi,
   },
   {
-    name: "Notifications",
+    name: "sidebar.notifications",
     path: "/notification",
     icon: Bell,
   },
   {
-    name: "Profile",
+    name: "sidebar.profile",
     path: "/profile",
     icon: User,
   },
