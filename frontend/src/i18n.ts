@@ -39,6 +39,29 @@ const messages = {
       websocket: "WebSocket",
       notifications: "Notifications",
       profile: "Profile",
+      loginGroup: "Login Methods",
+      loginBasic: "Basic Login",
+      loginTg: "Telegram Login",
+      loginGoogle: "Google Login",
+    },
+    login: {
+      basic: {
+        title: "Basic Login",
+        description: "Sign in with your email and password.",
+        email: "Email address",
+        password: "Password",
+        submit: "Sign In",
+      },
+      tg: {
+        title: "Telegram Login",
+        description: "Authenticate using Telegram.",
+        button: "Continue with Telegram",
+      },
+      google: {
+        title: "Google Login",
+        description: "Sign in with your Google account.",
+        button: "Continue with Google",
+      },
     },
     page: {
       dashboard: {
@@ -129,6 +152,29 @@ const messages = {
       websocket: "WebSocket",
       notifications: "通知",
       profile: "個人資料",
+      loginGroup: "登入方式",
+      loginBasic: "一般登入",
+      loginTg: "Telegram 登入",
+      loginGoogle: "Google 登入",
+    },
+    login: {
+      basic: {
+        title: "一般登入",
+        description: "使用電子郵件與密碼登入。",
+        email: "電子郵件地址",
+        password: "密碼",
+        submit: "登入",
+      },
+      tg: {
+        title: "Telegram 登入",
+        description: "使用 Telegram 進行驗證。",
+        button: "繼續使用 Telegram",
+      },
+      google: {
+        title: "Google 登入",
+        description: "使用 Google 帳戶登入。",
+        button: "繼續使用 Google",
+      },
     },
     page: {
       dashboard: {

@@ -21,6 +21,29 @@
         <component :is="item.icon" :size="20" />
         <span>{{ t(item.name) }}</span>
       </RouterLink>
+
+      <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800">
+        <div
+          class="px-4 pb-2 text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400"
+        >
+          {{ t("sidebar.loginGroup") }}
+        </div>
+
+        <RouterLink
+          v-for="item in loginMenus"
+          :key="item.name"
+          :to="item.path"
+          class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all"
+          :class="
+            route.path === item.path
+              ? 'bg-blue-50 text-blue-600 font-medium'
+              : 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800'
+          "
+        >
+          <component :is="item.icon" :size="20" />
+          <span>{{ t(item.name) }}</span>
+        </RouterLink>
+      </div>
     </nav>
 
     <!-- User Info -->
@@ -40,7 +63,16 @@
 
 <script setup>
 import { useRoute } from "vue-router";
-import { LayoutDashboard, MessageSquare, Wifi, Bell, User } from "lucide-vue-next";
+import {
+  LayoutDashboard,
+  MessageSquare,
+  Wifi,
+  Bell,
+  User,
+  ArrowRightCircle,
+  LogIn,
+  MessageCircle,
+} from "lucide-vue-next";
 import { useI18n } from "@/i18n";
 
 const route = useRoute();
@@ -71,6 +103,24 @@ const menus = [
     name: "sidebar.profile",
     path: "/profile",
     icon: User,
+  },
+];
+
+const loginMenus = [
+  {
+    name: "sidebar.loginBasic",
+    path: "/login/basic",
+    icon: LogIn,
+  },
+  {
+    name: "sidebar.loginTg",
+    path: "/login/tg",
+    icon: MessageCircle,
+  },
+  {
+    name: "sidebar.loginGoogle",
+    path: "/login/google",
+    icon: ArrowRightCircle,
   },
 ];
 </script>
