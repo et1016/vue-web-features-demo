@@ -1,4 +1,4 @@
-import { computed, ref, watch } from "vue";
+import { ref, watch } from "vue";
 
 export type Locale = "en" | "zh-TW";
 const STORAGE_KEY = "app-locale";
