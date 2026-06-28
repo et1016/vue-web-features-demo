@@ -66,8 +66,6 @@ function heartbeat(payload = {}) {
     message: `${name} 已加入即時會話`,
     user: name,
   });
-
-  return getMetrics();
 }
 
 function createEvent(payload = {}) {
