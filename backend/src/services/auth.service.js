@@ -8,7 +8,7 @@ exports.googleLogin = async (idToken) => {
     throw {
       status: 400,
       code: 400,
-      message: "Google ID Token is required.",
+      message: "缺少 Google ID Token。 或 必須提供 Google ID Token。",
     };
   }
 
@@ -23,7 +23,7 @@ exports.googleLogin = async (idToken) => {
     throw {
       status: 401,
       code: 401,
-      message: "Invalid Google ID Token.",
+      message: "Google ID Token 無效。 或 Google ID Token 驗證失敗。",
     };
   }
 
@@ -41,7 +41,6 @@ exports.googleLogin = async (idToken) => {
 
   return {
     code: 200,
-    message: "successful",
     data: {
       access_token,
       expires_in: 3600,
@@ -52,5 +51,6 @@ exports.googleLogin = async (idToken) => {
         avatar: picture,
       },
     },
+    message: "成功",
   };
 };

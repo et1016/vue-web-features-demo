@@ -8,8 +8,8 @@ exports.googleLogin = async (req, res) => {
   } catch (error) {
     return res.status(error.status || 500).json({
       code: error.code || 500,
-      message: error.message || "Internal Server Error",
       data: null,
+      message: error.message || "伺服器內部錯誤。",
     });
   }
 };
