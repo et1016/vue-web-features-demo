@@ -10,19 +10,26 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use("/auth", authRoutes);
 app.use("/socket", socketRoutes);
 
 const server = http.createServer(app);
 const wss = new WebSocketServer({ server });
 
-function broadcastMetrics() {
-  const payload = JSON.stringify({ type: "metrics", payload: socketService.getMetrics() });
+function broadcastMessage(message) {
+  const payload = JSON.stringify(message);
   wss.clients.forEach((client) => {
     if (client.readyState === WebSocket.OPEN) {
       client.send(payload);
     }
   });
+}
+
+app.locals.broadcastSocketMessage = broadcastMessage;
+
+function broadcastMetrics() {
+  broadcastMessage({ type: "metrics", payload: socketService.getMetrics() });
 }
 
 wss.on("connection", (ws) => {

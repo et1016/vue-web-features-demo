@@ -1,5 +1,6 @@
 const onlineUsers = new Map();
 const eventStream = [];
+const notificationHistory = [];
 
 function formatTime(date) {
   return new Date(date).toLocaleString();
@@ -18,6 +19,31 @@ function pushEvent(event) {
   }
 
   return entry;
+}
+
+function pushNotification(payload = {}) {
+  const notification = {
+    id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    title: payload.title || "新通知",
+    body: payload.body || "您收到一則新的推播通知",
+    user: payload.user || "System",
+    category: payload.category || "general",
+    channel: payload.channel || "push",
+    createdAt: new Date().toISOString(),
+  };
+
+  notificationHistory.unshift(notification);
+  if (notificationHistory.length > 20) {
+    notificationHistory.length = 20;
+  }
+
+  pushEvent({
+    type: "notification",
+    message: notification.title,
+    user: notification.user,
+  });
+
+  return notification;
 }
 
 function seedInitialData() {
@@ -47,6 +73,8 @@ function getMetrics() {
     eventsCount: eventStream.length,
     events: eventStream.slice(0, 10),
     eventStream: eventStream.slice(0, 10),
+    notifications: notificationHistory.slice(0, 10),
+    notificationHistory: notificationHistory.slice(0, 10),
     updatedAt: new Date().toISOString(),
   };
 }
@@ -60,12 +88,6 @@ function heartbeat(payload = {}) {
     name,
     lastSeen: now,
   });
-
-  pushEvent({
-    type: "heartbeat",
-    message: `${name} 已加入即時會話`,
-    user: name,
-  });
 }
 
 function createEvent(payload = {}) {
@@ -73,8 +95,13 @@ function createEvent(payload = {}) {
   return pushEvent({ type, message, user });
 }
 
+function createNotification(payload = {}) {
+  return pushNotification(payload);
+}
+
 module.exports = {
   getMetrics,
   heartbeat,
   createEvent,
+  createNotification,
 };
